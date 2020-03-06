@@ -1,6 +1,10 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - curl -Lo helm.tar.gz https://get.helm.sh/helm-v3.1.1-linux-amd64.tar.gz
+      - tar -xzf helm.tar.gz && chmod +x linux-amd64/helm && mv linux-amd64/helm /usr/local/bin/
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -21,3 +25,6 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+      - helm repo add sum41k-charts s3://sum41k-helm-charts/charts
+      - helm upgrade httpd-test sum41k-charts/httpd-test
