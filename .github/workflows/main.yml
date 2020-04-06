@@ -6,9 +6,9 @@ name: Build_Docker_Image
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: master
   pull_request:
-    branches: [ master ]
+    branches: master
     
 env:
   HADOLINT_VERSION: v1.17.2
