@@ -26,7 +26,6 @@ jobs:
         run: |
           curl -Lo ~/hadolint https://github.com/hadolint/hadolint/releases/download/${{ env.HADOLINT_VERSION }}/hadolint-Linux-x86_64
           chmod +x ~/hadolint
-          which hadolint
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pre-commit
