@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v1
       - name: set PY
         run: echo "::set-env name=PY::$(python -c 'import hashlib, sys;print(hashlib.sha256(sys.version.encode()+sys.executable.encode()).hexdigest())')"
-      - name: Install pre-commit
+      - name: Install hadolint
         run: |
           sudo curl -Lo /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/download/${{ env.HADOLINT_VERSION }}/hadolint-Linux-x86_64
           sudo chmod +x /usr/local/bin/hadolint
@@ -45,5 +45,6 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
+        tags: "latest,Ver-${{ github.sha }}"
 
   
